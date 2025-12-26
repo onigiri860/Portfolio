@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    /* 丸型画像 */
+    .icon {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 10px 0 30px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 丸型画像 -->
+  <img src="img/icon.png" alt="icon" class="icon">
+
+  <!-- 名前 -->
+  <h1>onigiri860</h1>
+
+  <!-- プロフィールボタン -->
+  <button onclick="goProfile()">プロフィール</button>
+
+  <script>
+    function goProfile() {
+      window.location.href = "profile.html";
+    }
+  </script>
+
+</body>
+</html>
