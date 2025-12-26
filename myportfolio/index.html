@@ -2,62 +2,249 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Portfolio</title>
+  <title>onigiri860 Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
+    :root {
+      --bg-main: #0f172a;
+      --bg-sub: #111827;
+      --card: #1f2933;
+      --accent: #38bdf8;
+      --text-main: #e5e7eb;
+      --text-sub: #9ca3af;
     }
 
-    /* 丸型画像 */
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.8;
+    }
+
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(180deg, #020617, #0f172a);
+    }
+
     .icon {
-      width: 150px;
-      height: 150px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
+      border: 3px solid var(--accent);
     }
 
     h1 {
-      margin: 10px 0 30px 0;
+      font-size: 2.5rem;
+      margin: 10px 0;
     }
 
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
+    .subtitle {
+      color: var(--text-sub);
+      margin-bottom: 30px;
+      max-width: 520px;
+    }
+
+    nav button {
+      margin: 6px;
+      padding: 10px 22px;
+      border: 1px solid var(--accent);
+      border-radius: 30px;
+      background: transparent;
+      color: var(--accent);
       cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      background-color: #4CAF50;
-      color: white;
+      transition: all 0.3s ease;
     }
 
-    button:hover {
-      opacity: 0.8;
+    nav button:hover {
+      background: var(--accent);
+      color: #020617;
+    }
+
+    section {
+      padding: 90px 12%;
+      background: var(--bg-sub);
+    }
+
+    section:nth-of-type(even) {
+      background: var(--bg-main);
+    }
+
+    .card {
+      background: var(--card);
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      max-width: 900px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .enter-3d {
+      margin-top: 30px;
+      padding: 14px 34px;
+      font-size: 1rem;
+      border-radius: 40px;
+      background: var(--accent);
+      border: none;
+      color: #020617;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .enter-3d:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      padding: 30px;
+      text-align: center;
+      background: #020617;
+      color: var(--text-sub);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 70px 8%;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- 丸型画像 -->
-  <img src="img/icon.png" alt="icon" class="icon">
-
-  <!-- 名前 -->
+<!-- Hero -->
+<header>
+  <img src="img/icon.jpg" class="icon" alt="icon">
   <h1>onigiri860</h1>
+  <p class="subtitle">
+    Unity × Python による<br>
+    リアルタイム双方向システムの研究
+  </p>
 
-  <!-- プロフィールボタン -->
-  <button onclick="goProfile()">プロフィール</button>
+  <nav>
+    <button onclick="scrollToSection('about')">About</button>
+    <button onclick="scrollToSection('skills')">Skills</button>
+    <button onclick="scrollToSection('works')">Works</button>
+    <button onclick="scrollToSection('contact')">Contact</button>
+  </nav>
 
-  <script>
-    function goProfile() {
-      window.location.href = "profile.html";
-    }
-  </script>
+  <!-- 3D遷移ボタン -->
+  <button class="enter-3d" onclick="enter3D()">
+    3D Portfolioへ入る
+  </button>
+</header>
+
+<!-- About -->
+<section id="about">
+  <div class="card">
+    <h2>About</h2>
+    <p>
+      UnityとPythonを用いたリアルタイム双方向通信および
+      パラメータ最適化に関心を持ち、研究・開発を行っています。
+    </p>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="card">
+    <h2>Skills</h2>
+    <ul>
+      <li>Python：最適化処理、データ解析、Unity連携</li>
+      <li>Unity：3Dシーン生成、外部制御</li>
+      <li>Optuna：パラメータ最適化</li>
+      <li>双方向通信：Socket / Pipe</li>
+      <li>Git / GitHub</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Works -->
+<section id="works">
+  <div class="card">
+    <h2>Works</h2>
+    <p>
+      UnityとPythonを連携させたリアルタイムシステムを中心に、
+      研究・開発を行っています。
+    </p>
+    <p>
+      3D空間内で、研究内容を建物ごとに閲覧できる
+      インタラクティブなポートフォリオを制作中です。
+    </p>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="card">
+    <h2>Contact</h2>
+    <p>
+      GitHub：
+      <a href="https://github.com/onigiri860" target="_blank">
+        https://github.com/onigiri860
+      </a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  © 2025 onigiri860
+</footer>
+
+<script>
+  function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({
+      behavior: "smooth"
+    });
+  }
+
+  function enter3D() {
+    window.location.href = "3d/3dscene.html";
+  }
+
+  const cards = document.querySelectorAll('.card');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  });
+
+  cards.forEach(card => observer.observe(card));
+</script>
 
 </body>
 </html>
