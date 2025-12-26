@@ -55,7 +55,14 @@ export default function Home() {
             
             {/* Header / Hero Section */}
             <section className="text-center py-20">
-              <div className="w-32 h-32 bg-gradient-to-tr from-blue-500 to-purple-600 rounded-full mx-auto mb-6 shadow-xl shadow-blue-500/20"></div>
+              {/* ▼▼▼ 画像タグに置き換え ▼▼▼ */}
+              {/* 重要：srcの先頭に /Portfolio をつけること！ */}
+              <img 
+                src="/Portfolio/images/onigiri860.jpg" 
+                alt="Profile Icon" 
+                className="w-32 h-32 rounded-full mx-auto mb-6 shadow-xl shadow-blue-500/20 object-cover border-4 border-gray-800"
+              />
+              {/* ▲▲▲ 置き換え完了 ▲▲▲ */}
               <h2 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
                 Engineering <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">

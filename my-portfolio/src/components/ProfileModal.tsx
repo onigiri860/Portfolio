@@ -38,10 +38,12 @@ export default function ProfileModal() {
 
         {/* プロフィール中身 */}
         <div className="text-center">
-          {/* アイコン画像 (ダミー) */}
-          <div className="w-24 h-24 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full mx-auto mb-4 border-4 border-white shadow-lg flex items-center justify-center text-white text-3xl font-bold">
-            P
-          </div>
+        {/* アイコン画像 */}
+        <img 
+            src="/Portfolio/images/onigiri860.jpg"
+            alt="Profile Icon"
+            className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-gray-800 shadow-lg object-cover bg-gray-800"
+        />
           
           <h2 className="text-2xl font-bold mb-1">onigiri860</h2>
           <p className="text-gray-500 text-sm mb-6">Engineer / Researcher</p>
