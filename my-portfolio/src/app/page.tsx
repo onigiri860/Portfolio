@@ -7,6 +7,8 @@ import Experience from '../components/Experience';
 import Skills from '../components/Skills'; 
 import Works from '../components/Works';   
 import Volleyball from '../components/Volleyball';
+import Contact from '../components/Contact';
+
 
 export default function Home() {
   const { is3DMode, toggleMode, isProfileOpen, setProfileOpen } = useStore();
@@ -81,19 +83,7 @@ export default function Home() {
 
             <Volleyball />
 
-            {/* Contact Section */}
-            <section id="contact" className="text-center py-10 border-t border-gray-800">
-              <h3 className="text-xl font-bold mb-4">Contact</h3>
-              <a 
-                href="https://github.com/onigiri860" 
-                target="_blank" 
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors font-mono"
-              >
-                github.com/onigiri860 ↗
-              </a>
-              <p className="text-gray-600 text-xs mt-8">© 2025 onigiri860</p>
-            </section>
+            <Contact />
 
           </div>
         )}
