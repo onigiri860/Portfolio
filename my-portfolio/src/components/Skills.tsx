@@ -1,24 +1,56 @@
 import React from 'react';
 
 const skills = [
-  { name: 'Python', desc: '最適化処理、データ解析、Unity連携' },
-  { name: 'Unity', desc: '3Dシーン生成、外部制御 (C#)' },
-  { name: 'Optuna', desc: 'パラメータ最適化' },
-  { name: 'Communication', desc: 'Socket / Pipe 双方向通信' },
-  { name: 'Tools', desc: 'Git / GitHub / Docker' },
+  // 1. 研究・開発の核となる技術
+  { 
+    name: 'Python', 
+    desc: '研究の主軸。数値計算(NumPy)、パラメータ最適化(Optuna)、Unityとのソケット通信処理など。' 
+  },
+  { 
+    name: 'Unity (C#)', 
+    desc: '3Dシミュレーションおよび可視化システムの構築。Python連携によるリアルタイム制御。' 
+  },
+  
+  // 2. Web開発技術 (Portfolio, shared-calendar)
+  { 
+    name: 'Next.js / React', 
+    desc: 'コンポーネント指向のUI構築。SSG/SSRを活用したWebアプリケーション開発。' 
+  },
+  { 
+    name: 'TypeScript', 
+    desc: '型安全性重視の堅牢なコード記述。React開発における標準言語として使用。' 
+  },
+  { 
+    name: 'Three.js / R3F', 
+    desc: 'React Three Fiberを用いたWebブラウザ上での3D表現・演出の実装。' 
+  },
+
+  // 3. チーム開発・ツール (T-lab, prapro-ou)
+  { 
+    name: 'Git / GitHub', 
+    desc: 'チーム開発におけるバージョン管理、プルリクエストベースの開発フロー。' 
+  },
+  { 
+    name: 'Socket / Pipe', 
+    desc: '異なる言語間(Python⇔Unity等)をつなぐリアルタイム双方向通信の実装。' 
+  },
+  { 
+    name: 'Tailwind CSS', 
+    desc: 'ユーティリティファーストなスタイリング。レスポンシブデザインの高速な構築。' 
+  },
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 backdrop-blur-sm">
-      <h3 className="text-2xl font-bold mb-6 text-blue-400 flex items-center gap-2">
+    <section id="skills" className="bg-white/80 p-8 rounded-3xl border border-white/60 backdrop-blur-md shadow-lg">
+      <h3 className="text-2xl font-bold mb-6 text-sky-600 flex items-center gap-2">
         Skills
       </h3>
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {skills.map((skill) => (
-          <li key={skill.name} className="flex flex-col p-4 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors border border-gray-700/50">
-            <span className="font-bold text-lg text-gray-200">{skill.name}</span>
-            <span className="text-sm text-gray-400">{skill.desc}</span>
+          <li key={skill.name} className="flex flex-col p-5 bg-white/60 rounded-xl hover:bg-white transition-colors border border-gray-200 shadow-sm hover:shadow-md hover:border-sky-200">
+            <span className="font-bold text-lg text-gray-800 mb-1">{skill.name}</span>
+            <span className="text-sm text-gray-600 leading-snug">{skill.desc}</span>
           </li>
         ))}
       </ul>

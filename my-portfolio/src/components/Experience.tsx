@@ -23,32 +23,31 @@ const experiences = [
 
 export default function Experience() {
   return (
-    // Skills, Worksと同じデザインスタイル
-    <section className="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 backdrop-blur-sm">
-      <h2 className="text-2xl font-bold mb-8 text-blue-400 flex items-center gap-2">
+    <section className="bg-white/80 p-8 rounded-3xl border border-white/60 backdrop-blur-md shadow-lg">
+      <h2 className="text-2xl font-bold mb-8 text-emerald-600 flex items-center gap-2">
         Experience
       </h2>
 
       {/* タイムライン */}
-      <div className="relative border-l-2 border-gray-600 ml-3 space-y-10">
+      <div className="relative border-l-2 border-emerald-200 ml-3 space-y-10">
         {experiences.map((item) => (
           <div key={item.id} className="relative pl-8">
             
             {/* 丸い点 */}
-            <div className="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-500 rounded-full border-4 border-gray-800 shadow-sm"></div>
+            <div className="absolute -left-[9px] top-1.5 w-4 h-4 bg-emerald-500 rounded-full border-4 border-white shadow-sm"></div>
             
             {/* 日付 */}
-            <span className="block text-xs text-blue-300 font-mono mb-1 tracking-wide">
+            <span className="block text-xs text-emerald-600 font-mono font-bold mb-1 tracking-wide">
               {item.date}
             </span>
 
             {/* タイトル */}
-            <h3 className="text-lg font-bold mb-2 text-white">
+            <h3 className="text-lg font-bold mb-1 text-gray-900">
               {item.title}
             </h3>
 
             {/* 説明文 */}
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-600 text-sm leading-relaxed">
               {item.description}
             </p>
           </div>
