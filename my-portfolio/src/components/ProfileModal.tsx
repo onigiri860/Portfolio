@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { useStore } from '../store/useStore';
 
 export default function ProfileModal() {
@@ -24,12 +25,15 @@ export default function ProfileModal() {
         </button>
 
         <div className="text-center">
-          {/* プロフィール画像 */}
-          <img 
-            src="/Portfolio/images/onigiri860.jpg" 
-            alt="Profile" 
-            className="w-28 h-28 rounded-full mx-auto mb-4 border-4 border-white shadow-lg object-cover"
-          />
+          {/* プロフィール画像: Imageコンポーネントに変更 */}
+          <div className="mx-auto mb-4 w-28 h-28 relative">
+            <Image 
+              src="/Portfolio/images/onigiri860.jpg" 
+              alt="Profile" 
+              fill // 親要素(w-28 h-28)に合わせて埋める
+              className="rounded-full border-4 border-white shadow-lg object-cover"
+            />
+          </div>
           
           <h2 className="text-2xl font-bold text-gray-900 mb-2">onigiri860</h2>
           <p className="text-sky-600 text-sm font-mono font-bold mb-6">岡山大学 工学部 情報工学コース</p>

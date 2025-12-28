@@ -4,7 +4,7 @@ const skills = [
   // 1. 研究・開発の核となる技術
   { 
     name: 'Python', 
-    desc: '研究の主軸。数値計算(NumPy)、パラメータ最適化(Optuna)、Unityとのソケット通信処理など。' 
+    desc: '数値計算(NumPy)、パラメータ最適化(Optuna)、Unityとのソケット通信処理など。' 
   },
   { 
     name: 'Unity (C#)', 

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const favoritePlayers = [
   { name: '山本 智大', flag: '🇯🇵' },
@@ -48,10 +49,13 @@ export default function Volleyball() {
               2025/10/24 (ブルテオンvsサントリー)
             </p>
             <div className="flex justify-center">
-              {/* h-auto にして高さを自動調整し、object-cover を削除 */}
-              <img
+              {/* Imageコンポーネントに変更。縦横比を維持してレスポンシブ表示 */}
+              <Image
                 src="/Portfolio/images/volleyball_2025_10_24.jpg"
                 alt="Volleyball Match 2025_10_24"
+                width={0}
+                height={0}
+                sizes="100vw"
                 className="rounded-xl shadow-md border-4 border-white w-full max-w-3xl h-auto"
               />
             </div>
@@ -63,9 +67,12 @@ export default function Volleyball() {
               2025/03/09 (サントリーvsブルテオン)
             </p>
             <div className="flex justify-center">
-              <img
+              <Image
                 src="/Portfolio/images/volleyball_2025_03_09.jpg"
                 alt="Volleyball Match 2025_03_09"
+                width={0}
+                height={0}
+                sizes="100vw"
                 className="rounded-xl shadow-md border-4 border-white w-full max-w-3xl h-auto"
               />
             </div>
@@ -76,16 +83,21 @@ export default function Volleyball() {
             <p className="text-center text-gray-500 text-sm mb-2 font-medium">
               2025/02/17 仙台市体育館
             </p>
-            {/* items-start を追加して、縦横比が違っても上揃えにする */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-              <img
+              <Image
                 src="/Portfolio/images/haikyu_1.jpg"
                 alt="haikyu_1"
+                width={0}
+                height={0}
+                sizes="100vw"
                 className="rounded-xl shadow-md border-4 border-white w-full h-auto"
               />
-              <img
+              <Image
                 src="/Portfolio/images/haikyu_2.jpg"
                 alt="haikyu_2"
+                width={0}
+                height={0}
+                sizes="100vw"
                 className="rounded-xl shadow-md border-4 border-white w-full h-auto"
               />
             </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const works = [
   {
@@ -121,6 +122,7 @@ export default function Works() {
                         */}
                         <video 
                           src="/Portfolio/videos/説明動画.mp4" 
+                          poster="/Portfolio/images/initial.jpg"
                           controls 
                           className="w-full max-h-[400px] object-contain mx-auto"
                         />
@@ -136,40 +138,44 @@ export default function Works() {
                         {/* 初期画像 */}
                         <div className="flex flex-col items-center">
                           <div className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden border border-gray-300 shadow-sm relative group">
-                             {/* public/Portfolio/images/research/initial.jpg */}
-                            <img 
+                            <Image 
                               src="/Portfolio/images/initial.jpg" 
                               alt="初期画像" 
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-500"
                             />
                           </div>
                           <span className="mt-2 text-xs font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded-full">初期画像</span>
                         </div>
 
-                        {/* 最適化画像 (結果) */}
-                        <div className="flex flex-col items-center">
-                          <div className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 border-sky-500 shadow-md relative group">
-                            {/* public/Portfolio/images/research/optimized.jpg */}
-                            <img 
-                              src="/Portfolio/images/optimized.jpg" 
-                              alt="最適化画像" 
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            />
-                          </div>
-                          <span className="mt-2 text-xs font-bold text-sky-700 bg-sky-100 px-2 py-1 rounded-full">最適化後</span>
-                        </div>
-
                         {/* 目標画像 (正解) */}
                         <div className="flex flex-col items-center">
                           <div className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 border-amber-400 shadow-sm relative group">
-                            {/* public/Portfolio/images/research/target.jpg */}
-                            <img 
+                            <Image 
                               src="/Portfolio/images/target.jpg" 
                               alt="目標画像" 
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-500"
                             />
                           </div>
-                          <span className="mt-2 text-xs font-bold text-amber-700 bg-amber-100 px-2 py-1 rounded-full">目標画像 (Target)</span>
+                          <span className="mt-2 text-xs font-bold text-amber-700 bg-amber-100 px-2 py-1 rounded-full">目標画像</span>
+                        </div>
+
+                        {/* 最適化画像 (結果) */}
+                        <div className="flex flex-col items-center">
+                          <div className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 border-sky-500 shadow-md relative group">
+                            <Image 
+                              src="/Portfolio/images/optimized.jpg" 
+                              alt="最適化画像" 
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-500"
+                            />
+                            {/* ラベルバッジ */}
+                            <div className="absolute top-0 right-0 bg-sky-500 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg z-10">
+                              Result
+                            </div>
+                          </div>
+                          <span className="mt-2 text-xs font-bold text-sky-700 bg-sky-100 px-2 py-1 rounded-full">最適化後</span>
                         </div>
                       </div>
                     </div>
