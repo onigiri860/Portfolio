@@ -9,6 +9,8 @@ import Experience from '../components/Experience';
 import Skills from '../components/Skills';
 import Works from '../components/Works';
 import Volleyball from '../components/Volleyball';
+import Music from '../components/Music';
+import Game from '../components/Game';
 import Contact from '../components/Contact';
 
 // --- シンプルなジョイスティックコンポーネント ---
@@ -140,6 +142,8 @@ export default function Home() {
       case 'works': return <Works />;
       case 'experience': return <Experience />;
       case 'volleyball': return <Volleyball />;
+      case 'music': return <Music />;
+      case 'game': return <Game />;
       default: return null;
     }
   };
@@ -338,6 +342,24 @@ export default function Home() {
                         </p>
                       </div>
                       <div className="flex items-center gap-2 text-orange-600 text-sm font-bold group-hover:translate-x-2 transition-transform">Open Gallery <span>→</span></div>
+                    </div>
+                    {/* Music */}
+                    <div onClick={() => setActiveSection('music')} className="group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white/60 hover:border-purple-500 hover:bg-white/90 transition-all cursor-pointer h-64 flex flex-col justify-between shadow-lg hover:shadow-xl">
+                      <div><h3 className="text-2xl font-bold text-purple-600 mb-2">Music</h3>
+                        <p className="text-gray-600 line-clamp-3 font-medium">
+                          最近聞いてる音楽。<br/>
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2 text-purple-600 text-sm font-bold group-hover:translate-x-2 transition-transform">Open Gallery <span>→</span></div>
+                    </div>
+                    {/* Game */}
+                    <div onClick={() => setActiveSection('game')} className="group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white/60 hover:border-red-500 hover:bg-white/90 transition-all cursor-pointer h-64 flex flex-col justify-between shadow-lg hover:shadow-xl">
+                      <div><h3 className="text-2xl font-bold text-red-600 mb-2">Game</h3>
+                        <p className="text-gray-600 line-clamp-3 font-medium">
+                          最近遊んでるゲーム。<br/>
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2 text-red-600 text-sm font-bold group-hover:translate-x-2 transition-transform">Open Gallery <span>→</span></div>
                     </div>
                   </div>
                   <Contact />
