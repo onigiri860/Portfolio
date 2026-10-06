@@ -320,7 +320,7 @@ export default function Home() {
                     <div onClick={() => setActiveSection('works')} className="group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white/60 hover:border-amber-500 hover:bg-white/90 transition-all cursor-pointer h-64 flex flex-col justify-between shadow-lg hover:shadow-xl">
                       <div><h3 className="text-2xl font-bold text-amber-600 mb-2">Works</h3>
                         <p className="text-gray-600 line-clamp-3 font-medium">
-                          Unity × Python連携システムの研究開発。<br/> 3D空間ポートフォリオや、個人開発のゲームプロジェクト。
+                          学会で発表した逆レンダリングの研究や、<br/>個人開発のWebツール・ゲームなど。
                         </p>
                       </div>
                       <div className="flex items-center gap-2 text-amber-600 text-sm font-bold group-hover:translate-x-2 transition-transform">View Projects <span>→</span></div>
@@ -329,7 +329,7 @@ export default function Home() {
                     <div onClick={() => setActiveSection('experience')} className="group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white/60 hover:border-emerald-500 hover:bg-white/90 transition-all cursor-pointer h-64 flex flex-col justify-between shadow-lg hover:shadow-xl">
                       <div><h3 className="text-2xl font-bold text-emerald-600 mb-2">Experience</h3>
                         <p className="text-gray-600 line-clamp-3 font-medium">
-                          2022年からの経歴。<br/>大学の経歴や大学でのWebアプリケーション開発、その他の活動など。
+                          2022年からの経歴。<br/>大学・大学院と学会発表（MIRU2026 / IW-FCV 2026）。
                         </p>
                       </div>
                       <div className="flex items-center gap-2 text-emerald-600 text-sm font-bold group-hover:translate-x-2 transition-transform">See Timeline <span>→</span></div>
@@ -347,7 +347,7 @@ export default function Home() {
                     <div onClick={() => setActiveSection('music')} className="group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white/60 hover:border-purple-500 hover:bg-white/90 transition-all cursor-pointer h-64 flex flex-col justify-between shadow-lg hover:shadow-xl">
                       <div><h3 className="text-2xl font-bold text-purple-600 mb-2">Music</h3>
                         <p className="text-gray-600 line-clamp-3 font-medium">
-                          最近聞いてる音楽。<br/>
+                          いま聴いてる曲と、最近聴いた曲。<br/>Spotify と連携。
                         </p>
                       </div>
                       <div className="flex items-center gap-2 text-purple-600 text-sm font-bold group-hover:translate-x-2 transition-transform">Open Gallery <span>→</span></div>
@@ -356,7 +356,7 @@ export default function Home() {
                     <div onClick={() => setActiveSection('game')} className="group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white/60 hover:border-red-500 hover:bg-white/90 transition-all cursor-pointer h-64 flex flex-col justify-between shadow-lg hover:shadow-xl">
                       <div><h3 className="text-2xl font-bold text-red-600 mb-2">Game</h3>
                         <p className="text-gray-600 line-clamp-3 font-medium">
-                          最近遊んでるゲーム。<br/>
+                          最近遊んでるゲーム。<br/>イナイレ、OW2、ポケスリなど。
                         </p>
                       </div>
                       <div className="flex items-center gap-2 text-red-600 text-sm font-bold group-hover:translate-x-2 transition-transform">Open Gallery <span>→</span></div>
