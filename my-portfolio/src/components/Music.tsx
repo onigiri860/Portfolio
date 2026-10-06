@@ -8,9 +8,18 @@ type Track = {
   url: string;
 };
 
+type Artist = {
+  name: string;
+  image: string | null;
+  url: string;
+};
+
 type MusicData = {
   nowPlaying: (Track & { progressMs: number; durationMs: number }) | null;
   recent: (Track & { playedAt: string })[];
+  // 直近約4週間でよく聴いた順（Worker が古いと無いこともある）
+  topTracks?: Track[];
+  topArtists?: Artist[];
 };
 
 // spotify-worker をデプロイした URL（.env.local / ビルド時の環境変数で指定）
@@ -42,6 +51,52 @@ function Cover({ src, alt, className }: { src: string | null; alt: string; class
     <img src={src} alt={alt} className={`${className} object-cover`} />
   ) : (
     <div className={`${className} bg-gray-200 flex items-center justify-center text-gray-400`}>♪</div>
+  );
+}
+
+const rankColor = ['text-amber-500', 'text-gray-400', 'text-orange-400'];
+
+function Ranking({ tracks, artists }: { tracks: Track[]; artists: Artist[] }) {
+  const [tab, setTab] = useState<'tracks' | 'artists'>(tracks.length > 0 ? 'tracks' : 'artists');
+  const items =
+    tab === 'tracks'
+      ? tracks.map((t) => ({ key: t.url, title: t.title, sub: t.artist, image: t.image, url: t.url }))
+      : artists.map((a) => ({ key: a.url, title: a.name, sub: '', image: a.image, url: a.url }));
+
+  return (
+    <div>
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <h4 className="text-sm font-bold text-gray-700 mr-auto">
+          よく聴いてる <span className="text-xs font-normal text-gray-400">（直近4週間）</span>
+        </h4>
+        {(['tracks', 'artists'] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`px-3 py-1 text-xs font-bold rounded-full border transition-colors ${
+              tab === t ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-gray-600 border-gray-200 hover:border-purple-300'
+            }`}
+          >
+            {t === 'tracks' ? '曲' : 'アーティスト'}
+          </button>
+        ))}
+      </div>
+
+      <ol className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
+        {items.map((item, i) => (
+          <li key={item.key}>
+            <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-3 py-2 hover:bg-purple-50/60 rounded-lg px-2 -mx-2 transition-colors">
+              <span className={`w-5 text-right text-sm font-black tabular-nums shrink-0 ${rankColor[i] ?? 'text-gray-300'}`}>{i + 1}</span>
+              <Cover src={item.image} alt={item.title} className={`w-10 h-10 shrink-0 ${tab === 'artists' ? 'rounded-full' : 'rounded-md'}`} />
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-bold text-gray-900 truncate">{item.title}</p>
+                {item.sub && <p className="text-xs text-gray-500 truncate">{item.sub}</p>}
+              </div>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
 
@@ -120,6 +175,11 @@ export default function Music() {
                 )}
               </div>
             </a>
+          )}
+
+          {/* よく聴いてる曲・アーティスト */}
+          {((data.topTracks?.length ?? 0) > 0 || (data.topArtists?.length ?? 0) > 0) && (
+            <Ranking tracks={data.topTracks ?? []} artists={data.topArtists ?? []} />
           )}
 
           {/* 最近聴いた曲 */}

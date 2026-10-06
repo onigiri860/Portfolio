@@ -5,6 +5,8 @@ const ALLOWED_ORIGINS = ['https://onigiri860.github.io', 'http://localhost:3000'
 
 const TOKEN_URL = 'https://accounts.spotify.com/api/token';
 const API = 'https://api.spotify.com/v1/me/player';
+const TOP_API = 'https://api.spotify.com/v1/me/top';
+const TOP_LIMIT = 10;
 
 async function getAccessToken(env) {
   const res = await fetch(TOKEN_URL, {
@@ -33,9 +35,13 @@ async function getMusic(env) {
   const token = await getAccessToken(env);
   const headers = { Authorization: `Bearer ${token}` };
 
-  const [nowRes, recentRes] = await Promise.all([
+  // short_term = 直近約4週間
+  const top = `time_range=short_term&limit=${TOP_LIMIT}`;
+  const [nowRes, recentRes, topTracksRes, topArtistsRes] = await Promise.all([
     fetch(`${API}/currently-playing`, { headers }),
     fetch(`${API}/recently-played?limit=6`, { headers }),
+    fetch(`${TOP_API}/tracks?${top}`, { headers }),
+    fetch(`${TOP_API}/artists?${top}`, { headers }),
   ]);
 
   let nowPlaying = null;
@@ -49,7 +55,17 @@ async function getMusic(env) {
 
   const recent = recentRes.ok ? (await recentRes.json()).items.map((i) => ({ ...toTrack(i.track), playedAt: i.played_at })) : [];
 
-  return { nowPlaying, recent };
+  // user-top-read 権限がないトークンだと 403 になるので、その場合は空にする
+  const topTracks = topTracksRes.ok ? (await topTracksRes.json()).items.map(toTrack) : [];
+  const topArtists = topArtistsRes.ok
+    ? (await topArtistsRes.json()).items.map((a) => ({
+        name: a.name,
+        image: a.images?.[0]?.url ?? null,
+        url: a.external_urls.spotify,
+      }))
+    : [];
+
+  return { nowPlaying, recent, topTracks, topArtists };
 }
 
 export default {
