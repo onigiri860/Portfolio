@@ -121,6 +121,8 @@ export default function Home() {
 
   // ジョイスティックの状態を管理するRef (再レンダリングを避けて高速に渡す)
   const joystickRef = useRef({ x: 0, y: 0 });
+  const jumpRef = useRef(false);
+  const [nearSection, setNearSection] = useState<string | null>(null);
 
   const handleJoystickMove = (x: number, y: number) => {
     joystickRef.current = { x, y };
@@ -199,7 +201,7 @@ export default function Home() {
               <div className="text-5xl group-hover:scale-110 transition-transform duration-300"></div>
               <div>
                 <h3 className="text-2xl font-bold text-white group-hover:text-amber-500 transition-colors">3D World</h3>
-                <p className="text-gray-400 text-sm mt-2 font-medium">3D都市探索による<br/>没入型ポートフォリオサイト</p>
+                <p className="text-gray-400 text-sm mt-2 font-medium">小さな惑星を走り回って<br/>探索するポートフォリオ</p>
               </div>
             </button>
           </div>
@@ -223,57 +225,67 @@ export default function Home() {
 
             <div className="pt-28 px-6 max-w-6xl mx-auto pb-20">
               {is3DMode ? (
-                /* === 3Dモード (FPS Style) === */
-                <div 
+                /* === 3Dモード（小さな惑星を走り回る） === */
+                <div
                   id="canvas-container"
-                  // ★ カーソル制御をインラインスタイルで強制する
-                  style={{ cursor: activeSection ? 'auto' : 'none' }}
-                  className={`w-full h-[80vh] bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/20 relative animate-fade-in group`}
+                  className="w-full h-[80vh] bg-sky-200 rounded-3xl overflow-hidden shadow-2xl border border-white/20 relative animate-fade-in touch-none select-none"
                 >
-                   {/* クロスヘア (モーダルが開いていない時のみ表示) */}
-                   {!activeSection && (
-                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none z-20 opacity-80 mix-blend-difference">
-                       <div className="absolute top-1/2 left-0 w-4 h-[2px] bg-white"></div>
-                       <div className="absolute top-0 left-1/2 w-[2px] h-4 bg-white"></div>
+                   <Scene
+                     onSelectSection={handleSectionSelect}
+                     onNearSection={setNearSection}
+                     nearSection={nearSection}
+                     isModalOpen={!!activeSection}
+                     joystickRef={joystickRef}
+                     jumpRef={jumpRef}
+                   />
+
+                   {/* 近くの建物を開くボタン */}
+                   {!activeSection && nearSection && (
+                     <div className="absolute bottom-36 md:bottom-10 left-1/2 -translate-x-1/2 z-20">
+                       <button
+                         onClick={() => handleSectionSelect(nearSection)}
+                         className="flex items-center gap-2 bg-white/90 hover:bg-white text-gray-900 font-bold px-5 py-3 rounded-full shadow-xl border border-white animate-fade-in"
+                       >
+                         <kbd className="hidden md:inline-block px-2 py-0.5 text-xs bg-gray-900 text-white rounded">E</kbd>
+                         {nearSection.toUpperCase()} を見る
+                       </button>
                      </div>
                    )}
 
-                   {/* ジョイスティック (モーダルが開いていない時のみ表示、かつタッチデバイス想定だが常時表示でもOK) */}
+                   {/* スマホ: ジョイスティックとジャンプ */}
                    {!activeSection && (
-                      <div className="md:hidden"> {/* PC画面では隠す場合は md:hidden */}
+                      <div className="md:hidden">
                          <Joystick onMove={handleJoystickMove} />
+                         <button
+                           onTouchStart={(e) => { e.stopPropagation(); jumpRef.current = true; }}
+                           className="absolute bottom-10 right-8 w-20 h-20 rounded-full bg-white/30 backdrop-blur-md border border-white/40 text-white font-bold text-sm z-30 active:bg-white/50"
+                         >
+                           JUMP
+                         </button>
                       </div>
                    )}
 
-                   <Scene 
-                     onSelectSection={handleSectionSelect} 
-                     isModalOpen={!!activeSection} 
-                     joystickRef={joystickRef}
-                   />
-                   
                    {/* 操作説明 */}
                    {!activeSection && (
                      <div className="absolute bottom-6 left-6 pointer-events-none z-10 hidden md:block">
-                       <div className="bg-black/60 backdrop-blur text-white p-4 rounded-xl border border-white/20 shadow-lg">
-                         <p className="text-sm font-bold text-sky-400 flex items-center gap-2">
-                           Exploration Mode
-                         </p>
-                         <ul className="text-xs text-gray-300 mt-2 space-y-1 font-mono">
-                           <li>[Click]  操作開始 / ロック</li>
+                       <div className="bg-black/50 backdrop-blur text-white p-4 rounded-xl border border-white/20 shadow-lg">
+                         <p className="text-sm font-bold text-sky-300">Planet Mode</p>
+                         <ul className="text-xs text-gray-200 mt-2 space-y-1 font-mono">
                            <li>[W,A,S,D]  移動</li>
-                           <li>[Mouse]  視点移動</li>
-                           <li>[Click Building] 詳細を見る</li>
-                           <li>[ESC]    マウスロック解除</li>
+                           <li>[Shift]    ダッシュ</li>
+                           <li>[Space]    ジャンプ</li>
+                           <li>[ドラッグ] 視点を回す</li>
+                           <li>[ホイール] ズーム</li>
+                           <li>[E / 建物をクリック] 詳細を見る</li>
                          </ul>
                        </div>
                      </div>
                    )}
-                   {/* スマホ用説明 */}
                    {!activeSection && (
                      <div className="absolute top-4 right-4 pointer-events-none z-10 md:hidden">
-                       <div className="bg-black/60 backdrop-blur text-white px-3 py-2 rounded-lg border border-white/20">
-                         <p className="text-xs text-gray-300">
-                           Left Stick: Move<br/>Screen Drag: Look
+                       <div className="bg-black/50 backdrop-blur text-white px-3 py-2 rounded-lg border border-white/20">
+                         <p className="text-xs text-gray-200">
+                           左スティック: 移動<br/>画面ドラッグ: 視点
                          </p>
                        </div>
                      </div>
