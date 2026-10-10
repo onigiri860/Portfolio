@@ -359,7 +359,7 @@ export default function Home() {
                     <div onClick={() => setActiveSection('music')} className="group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white/60 hover:border-purple-500 hover:bg-white/90 transition-all cursor-pointer h-64 flex flex-col justify-between shadow-lg hover:shadow-xl">
                       <div><h3 className="text-2xl font-bold text-purple-600 mb-2">Music</h3>
                         <p className="text-gray-600 line-clamp-3 font-medium">
-                          いま聴いてる曲と、最近聴いた曲。<br/>Spotify と連携。
+                          よく聴いてる曲と、最近聴いた曲。<br/>Spotify と連携。
                         </p>
                       </div>
                       <div className="flex items-center gap-2 text-purple-600 text-sm font-bold group-hover:translate-x-2 transition-transform">Open Gallery <span>→</span></div>
