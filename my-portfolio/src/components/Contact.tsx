@@ -29,24 +29,9 @@ export default function Contact() {
           <span className="text-xs font-mono font-bold">GitHub</span>
         </a>
 
-        {/* 2. X (Twitter) */}
+        {/* 2. Email */}
         <a 
-          href="https://x.com/your_x_id" // ★書き換えてください
-          target="_blank" 
-          rel="noreferrer"
-          className="group flex flex-col items-center gap-2 text-gray-600 hover:text-sky-600 transition-colors"
-        >
-          <div className="p-3 bg-white rounded-full shadow-md border border-gray-200 group-hover:bg-sky-50 group-hover:border-sky-200 transition-all">
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg>
-          </div>
-          <span className="text-xs font-mono font-bold">X / Twitter</span>
-        </a>
-
-        {/* 3. Email */}
-        <a 
-          href="mailto:your_email@example.com" // ★書き換えてください
+          href="mailto:yutanukiti@icloud.com"
           className="group flex flex-col items-center gap-2 text-gray-600 hover:text-sky-600 transition-colors"
         >
           <div className="p-3 bg-white rounded-full shadow-md border border-gray-200 group-hover:bg-sky-50 group-hover:border-sky-200 transition-all">

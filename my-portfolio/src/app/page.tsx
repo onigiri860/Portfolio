@@ -189,7 +189,6 @@ export default function Home() {
                 onClick={() => handleStart('2d')}
                 className="flex-1 group bg-gradient-to-br from-sky-400 to-cyan-300 p-4 md:p-7 rounded-3xl md:rounded-[2rem] border-b-8 border-sky-600 shadow-xl transition-all duration-200 hover:-translate-y-2 hover:-rotate-1 active:translate-y-0 active:border-b-4 flex flex-col items-center gap-3 text-center"
               >
-                <span className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-white flex items-center justify-center text-3xl md:text-4xl shadow-md group-hover:scale-110 group-hover:rotate-6 transition-transform">🗂️</span>
                 <h3 className="text-lg md:text-2xl font-black text-white drop-shadow">通常Web</h3>
                 <p className="text-white/90 text-xs md:text-sm font-bold">カードを選んで<br />サクッと読める</p>
                 <span className="mt-1 bg-white text-sky-600 text-xs md:text-sm font-black px-4 md:px-5 py-2 rounded-full shadow group-hover:px-6 md:group-hover:px-7 transition-all">はじめる →</span>
@@ -200,7 +199,6 @@ export default function Home() {
                 onClick={() => handleStart('3d')}
                 className="flex-1 group bg-gradient-to-br from-amber-400 to-orange-500 p-4 md:p-7 rounded-3xl md:rounded-[2rem] border-b-8 border-orange-700 shadow-xl transition-all duration-200 hover:-translate-y-2 hover:rotate-1 active:translate-y-0 active:border-b-4 flex flex-col items-center gap-3 text-center"
               >
-                <span className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-white flex items-center justify-center text-3xl md:text-4xl shadow-md group-hover:scale-110 group-hover:-rotate-6 transition-transform">🪐</span>
                 <h3 className="text-lg md:text-2xl font-black text-white drop-shadow">3D World</h3>
                 <p className="text-white/90 text-xs md:text-sm font-bold">惑星を走り回って<br />建物を探検する</p>
                 <span className="mt-1 bg-white text-orange-600 text-xs md:text-sm font-black px-4 md:px-5 py-2 rounded-full shadow group-hover:px-6 md:group-hover:px-7 transition-all">あそぶ →</span>

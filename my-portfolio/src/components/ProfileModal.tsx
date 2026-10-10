@@ -61,24 +61,9 @@ export default function ProfileModal() {
               <span className="text-[10px] font-mono font-bold">GitHub</span>
             </a>
 
-            {/* X (Twitter) */}
-            <a 
-              href="https://x.com/your_x_id" // ★書き換えてください
-              target="_blank" 
-              rel="noreferrer"
-              className="group flex flex-col items-center gap-1 text-gray-500 hover:text-sky-600 transition-colors"
-            >
-              <div className="p-2.5 bg-white rounded-full border border-gray-200 shadow-sm group-hover:bg-sky-50 group-hover:border-sky-200 transition-all">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </div>
-              <span className="text-[10px] font-mono font-bold">X / Twitter</span>
-            </a>
-
             {/* Email */}
             <a 
-              href="mailto:your_email@example.com" // ★書き換えてください
+              href="mailto:yutanukiti@icloud.com"
               className="group flex flex-col items-center gap-1 text-gray-500 hover:text-sky-600 transition-colors"
             >
               <div className="p-2.5 bg-white rounded-full border border-gray-200 shadow-sm group-hover:bg-sky-50 group-hover:border-sky-200 transition-all">
