@@ -29,19 +29,6 @@ export default function Contact() {
           <span className="text-xs font-mono font-bold">GitHub</span>
         </a>
 
-        {/* 2. Email */}
-        <a 
-          href="mailto:yutanukiti@icloud.com"
-          className="group flex flex-col items-center gap-2 text-gray-600 hover:text-sky-600 transition-colors"
-        >
-          <div className="p-3 bg-white rounded-full shadow-md border border-gray-200 group-hover:bg-sky-50 group-hover:border-sky-200 transition-all">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <span className="text-xs font-mono font-bold">Email</span>
-        </a>
-
       </div>
 
       <p className="inline-block text-gray-600 text-xs mt-12 bg-white/60 backdrop-blur-sm px-3 py-1 rounded-full">© 2025 onigiri860</p>

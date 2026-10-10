@@ -61,19 +61,6 @@ export default function ProfileModal() {
               <span className="text-[10px] font-mono font-bold">GitHub</span>
             </a>
 
-            {/* Email */}
-            <a 
-              href="mailto:yutanukiti@icloud.com"
-              className="group flex flex-col items-center gap-1 text-gray-500 hover:text-sky-600 transition-colors"
-            >
-              <div className="p-2.5 bg-white rounded-full border border-gray-200 shadow-sm group-hover:bg-sky-50 group-hover:border-sky-200 transition-all">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <span className="text-[10px] font-mono font-bold">Email</span>
-            </a>
-
           </div>
 
           <button 
