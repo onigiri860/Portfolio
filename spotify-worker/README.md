@@ -1,6 +1,6 @@
 # portfolio-spotify
 
-ポートフォリオの Music セクションに「いま聴いてる曲」「最近聴いた曲」を出すための Cloudflare Worker。
+ポートフォリオの Music セクションに「最近聴いた曲」「よく聴いてる曲・アーティスト」を出すための Cloudflare Worker。
 
 ## セットアップ
 

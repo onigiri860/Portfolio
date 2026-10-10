@@ -1,4 +1,4 @@
-// Spotify の「今聴いている曲」と「最近聴いた曲」を返す Cloudflare Worker。
+// Spotify の「最近聴いた曲」と「よく聴いている曲・アーティスト」を返す Cloudflare Worker。
 // 必要なシークレット: SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET / SPOTIFY_REFRESH_TOKEN
 
 const ALLOWED_ORIGINS = ['https://onigiri860.github.io', 'http://localhost:3000'];
@@ -37,21 +37,11 @@ async function getMusic(env) {
 
   // short_term = 直近約4週間
   const top = `time_range=short_term&limit=${TOP_LIMIT}`;
-  const [nowRes, recentRes, topTracksRes, topArtistsRes] = await Promise.all([
-    fetch(`${API}/currently-playing`, { headers }),
+  const [recentRes, topTracksRes, topArtistsRes] = await Promise.all([
     fetch(`${API}/recently-played?limit=6`, { headers }),
     fetch(`${TOP_API}/tracks?${top}`, { headers }),
     fetch(`${TOP_API}/artists?${top}`, { headers }),
   ]);
-
-  let nowPlaying = null;
-  // 204 = 何も再生していない
-  if (nowRes.status === 200) {
-    const now = await nowRes.json();
-    if (now.is_playing && now.currently_playing_type === 'track' && now.item) {
-      nowPlaying = { ...toTrack(now.item), progressMs: now.progress_ms, durationMs: now.item.duration_ms };
-    }
-  }
 
   const recent = recentRes.ok ? (await recentRes.json()).items.map((i) => ({ ...toTrack(i.track), playedAt: i.played_at })) : [];
 
@@ -65,7 +55,7 @@ async function getMusic(env) {
       }))
     : [];
 
-  return { nowPlaying, recent, topTracks, topArtists };
+  return { recent, topTracks, topArtists };
 }
 
 export default {

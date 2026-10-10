@@ -15,7 +15,6 @@ type Artist = {
 };
 
 type MusicData = {
-  nowPlaying: (Track & { progressMs: number; durationMs: number }) | null;
   recent: (Track & { playedAt: string })[];
   // 直近約4週間でよく聴いた順（Worker が古いと無いこともある）
   topTracks?: Track[];
@@ -24,7 +23,6 @@ type MusicData = {
 
 // spotify-worker をデプロイした URL（.env.local / ビルド時の環境変数で指定）
 const ENDPOINT = process.env.NEXT_PUBLIC_SPOTIFY_ENDPOINT;
-const POLL_MS = 30_000;
 
 function timeAgo(iso: string) {
   const min = Math.floor((Date.now() - new Date(iso).getTime()) / 60_000);
@@ -33,16 +31,6 @@ function timeAgo(iso: string) {
   const h = Math.floor(min / 60);
   if (h < 24) return `${h}時間前`;
   return `${Math.floor(h / 24)}日前`;
-}
-
-function Equalizer() {
-  return (
-    <span className="flex items-end gap-[2px] h-3">
-      {[0, 150, 300].map((delay) => (
-        <span key={delay} className="w-[3px] bg-green-500 rounded-sm animate-eq" style={{ animationDelay: `${delay}ms` }} />
-      ))}
-    </span>
-  );
 }
 
 function Cover({ src, alt, className }: { src: string | null; alt: string; className: string }) {
@@ -123,17 +111,10 @@ export default function Music() {
     };
 
     load();
-    const timer = setInterval(load, POLL_MS);
     return () => {
       cancelled = true;
-      clearInterval(timer);
     };
   }, []);
-
-  const now = data?.nowPlaying;
-  const last = data?.recent[0];
-  // 再生中でなければ最後に聴いた曲を大きく出す
-  const featured = now ?? last;
 
   return (
     <section className="bg-white/80 p-8 rounded-3xl border border-white/60 backdrop-blur-md shadow-lg">
@@ -147,36 +128,6 @@ export default function Music() {
         <div className="h-32 rounded-2xl bg-gray-100 animate-pulse" />
       ) : (
         <div className="space-y-8">
-          {/* 再生中 / 最後に聴いた曲 */}
-          {featured && (
-            <a
-              href={featured.url}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-5 p-4 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 text-white shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <Cover src={featured.image} alt={featured.album} className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl shrink-0 shadow-md" />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2 text-xs font-bold mb-2 text-green-400">
-                  {now ? (
-                    <>
-                      <Equalizer /> いま聴いてる
-                    </>
-                  ) : (
-                    <span className="text-gray-400">最後に聴いた曲・{last && timeAgo(last.playedAt)}</span>
-                  )}
-                </div>
-                <p className="text-lg font-bold truncate">{featured.title}</p>
-                <p className="text-sm text-gray-300 truncate">{featured.artist}</p>
-                {now && (
-                  <div className="mt-3 h-1 rounded-full bg-white/20 overflow-hidden">
-                    <div className="h-full bg-green-500" style={{ width: `${(now.progressMs / now.durationMs) * 100}%` }} />
-                  </div>
-                )}
-              </div>
-            </a>
-          )}
-
           {/* よく聴いてる曲・アーティスト */}
           {((data.topTracks?.length ?? 0) > 0 || (data.topArtists?.length ?? 0) > 0) && (
             <Ranking tracks={data.topTracks ?? []} artists={data.topArtists ?? []} />
