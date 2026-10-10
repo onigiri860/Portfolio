@@ -44,6 +44,11 @@ function Cover({ src, alt, className }: { src: string | null; alt: string; class
 
 const rankColor = ['text-amber-500', 'text-gray-400', 'text-orange-400'];
 
+// ジャケットを大きく並べて横スクロールさせる
+const rowClass = 'flex gap-4 overflow-x-auto snap-x snap-mandatory pb-3 pt-1 [scrollbar-width:thin]';
+const cardClass = 'w-28 sm:w-36 shrink-0 snap-start';
+const coverClass = 'w-28 h-28 sm:w-36 sm:h-36 shadow-md group-hover:shadow-lg group-hover:-translate-y-0.5 transition';
+
 function Ranking({ tracks, artists }: { tracks: Track[]; artists: Artist[] }) {
   const [tab, setTab] = useState<'tracks' | 'artists'>(tracks.length > 0 ? 'tracks' : 'artists');
   const items =
@@ -57,29 +62,33 @@ function Ranking({ tracks, artists }: { tracks: Track[]; artists: Artist[] }) {
         <h4 className="text-sm font-bold text-gray-700 mr-auto">
           よく聴いてる <span className="text-xs font-normal text-gray-400">（直近4週間）</span>
         </h4>
-        {(['tracks', 'artists'] as const).map((t) => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={`px-3 py-1 text-xs font-bold rounded-full border transition-colors ${
-              tab === t ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-gray-600 border-gray-200 hover:border-purple-300'
-            }`}
-          >
-            {t === 'tracks' ? '曲' : 'アーティスト'}
-          </button>
-        ))}
+        <div className="flex gap-2">
+          {(['tracks', 'artists'] as const).map((t) => (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              className={`px-3 py-1 text-xs font-bold rounded-full border transition-colors ${
+                tab === t ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-gray-600 border-gray-200 hover:border-purple-300'
+              }`}
+            >
+              {t === 'tracks' ? '曲' : 'アーティスト'}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <ol className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
+      <ol className={rowClass}>
         {items.map((item, i) => (
-          <li key={item.key}>
-            <a href={item.url} target="_blank" rel="noreferrer" className="flex items-center gap-3 py-2 hover:bg-purple-50/60 rounded-lg px-2 -mx-2 transition-colors">
-              <span className={`w-5 text-right text-sm font-black tabular-nums shrink-0 ${rankColor[i] ?? 'text-gray-300'}`}>{i + 1}</span>
-              <Cover src={item.image} alt={item.title} className={`w-10 h-10 shrink-0 ${tab === 'artists' ? 'rounded-full' : 'rounded-md'}`} />
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-bold text-gray-900 truncate">{item.title}</p>
-                {item.sub && <p className="text-xs text-gray-500 truncate">{item.sub}</p>}
+          <li key={item.key} className={cardClass}>
+            <a href={item.url} target="_blank" rel="noreferrer" className="group block">
+              <div className="relative">
+                <Cover src={item.image} alt={item.title} className={`${coverClass} ${tab === 'artists' ? 'rounded-full' : 'rounded-xl'}`} />
+                <span className={`absolute top-1.5 left-1.5 w-7 h-7 rounded-full bg-white/90 shadow flex items-center justify-center text-sm font-black tabular-nums ${rankColor[i] ?? 'text-gray-400'}`}>
+                  {i + 1}
+                </span>
               </div>
+              <p className={`mt-2 text-sm font-bold text-gray-900 truncate ${tab === 'artists' ? 'text-center' : ''}`}>{item.title}</p>
+              {item.sub && <p className="text-xs text-gray-500 truncate">{item.sub}</p>}
             </a>
           </li>
         ))}
@@ -137,16 +146,14 @@ export default function Music() {
           {data.recent.length > 0 && (
             <div>
               <h4 className="text-sm font-bold text-gray-700 mb-3">最近聴いた曲</h4>
-              <ul className="divide-y divide-gray-100">
+              <ul className={rowClass}>
                 {data.recent.map((t) => (
-                  <li key={t.playedAt}>
-                    <a href={t.url} target="_blank" rel="noreferrer" className="flex items-center gap-3 py-2 hover:bg-purple-50/60 rounded-lg px-2 -mx-2 transition-colors">
-                      <Cover src={t.image} alt={t.album} className="w-10 h-10 rounded-md shrink-0" />
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm font-bold text-gray-900 truncate">{t.title}</p>
-                        <p className="text-xs text-gray-500 truncate">{t.artist}</p>
-                      </div>
-                      <span className="text-[10px] text-gray-400 shrink-0">{timeAgo(t.playedAt)}</span>
+                  <li key={t.playedAt} className={cardClass}>
+                    <a href={t.url} target="_blank" rel="noreferrer" className="group block">
+                      <Cover src={t.image} alt={t.album} className={`${coverClass} rounded-xl`} />
+                      <p className="mt-2 text-sm font-bold text-gray-900 truncate">{t.title}</p>
+                      <p className="text-xs text-gray-500 truncate">{t.artist}</p>
+                      <p className="text-[10px] text-gray-400">{timeAgo(t.playedAt)}</p>
                     </a>
                   </li>
                 ))}
