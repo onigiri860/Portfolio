@@ -9,6 +9,8 @@ type Work = {
   category: Category;
   period: string;
   description: string;
+  // 説明が長いときの要点。あると要点だけ表示して、全文はボタンで開く
+  summary?: string[];
   role?: string;
   tags: string[];
   url?: string;
@@ -31,6 +33,11 @@ const works: Work[] = [
       'ランダム探索と局所線形近似（Levenberg–Marquardt法）、ガウシアンブラーによる多段階最適化を組み合わせた、勾配を使わない推定手法を提案。' +
       'さらに、パラメータグループごとの探索比率を収束状況に応じて自動で切り替え、人手を介さずに複数グループを同時推定できるようにした。\n\n' +
       '微分可能レンダラー Mitsuba 3 より色推定で約9倍速く、Mitsuba 3 では勾配が不安定で失敗した位置推定でも安定して収束。ベイズ最適化 (Optuna) と比べて成功率100%、平均約29倍の速さを示した。',
+    summary: [
+      'Unity を高速レンダラーとして使い、画像から色・位置・回転を逆算する',
+      '勾配を使わない多段階最適化の推定手法を提案',
+      'Mitsuba 3 より色推定で約9倍速く、Optuna 比で成功率100%・約29倍速',
+    ],
     tags: ['Unity', 'Python', 'NumPy', 'Inverse Rendering', 'Optimization'],
     hasDetails: true,
   },
@@ -294,6 +301,9 @@ function ResearchDetails() {
 
 export default function Works() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [openDescIds, setOpenDescIds] = useState<string[]>([]);
+  const toggleDesc = (id: string) =>
+    setOpenDescIds((ids) => (ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id]));
   const [filter, setFilter] = useState<'All' | Category>('All');
 
   const visible = filter === 'All' ? works : works.filter((w) => w.category === filter);
@@ -336,6 +346,7 @@ export default function Works() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {visible.map((work) => {
           const expanded = expandedId === work.id;
+          const descOpen = openDescIds.includes(work.id);
           const cat = categoryStyle[work.category];
           return (
             <div
@@ -366,7 +377,29 @@ export default function Works() {
 
               {work.role && <p className="text-xs font-bold text-rose-600 mb-2">{work.role}</p>}
 
-              <p className="text-gray-600 text-sm leading-relaxed mb-4 whitespace-pre-wrap">{work.description}</p>
+              {work.summary ? (
+                <div className="mb-4">
+                  <ul className="space-y-1.5 text-sm text-gray-700">
+                    {work.summary.map((point) => (
+                      <li key={point} className="flex gap-2">
+                        <span className="text-amber-500 font-bold">・</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={() => toggleDesc(work.id)}
+                    className="mt-2 text-xs font-bold text-amber-600 hover:text-amber-700"
+                  >
+                    {descOpen ? '説明を閉じる ▲' : '説明をすべて読む ▼'}
+                  </button>
+                  {descOpen && (
+                    <p className="mt-2 text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">{work.description}</p>
+                  )}
+                </div>
+              ) : (
+                <p className="text-gray-600 text-sm leading-relaxed mb-4 whitespace-pre-wrap">{work.description}</p>
+              )}
 
               {work.hasDetails && (
                 <div className="mb-4 w-full">

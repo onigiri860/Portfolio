@@ -24,6 +24,22 @@ type MusicData = {
 // spotify-worker をデプロイした URL（.env.local / ビルド時の環境変数で指定）
 const ENDPOINT = process.env.NEXT_PUBLIC_SPOTIFY_ENDPOINT;
 
+// トップのカードとモーダルで同じデータを使うので、取得は1回にまとめる
+let musicRequest: Promise<MusicData> | null = null;
+function fetchMusic() {
+  if (!ENDPOINT) return Promise.reject(new Error('no endpoint'));
+  musicRequest ??= fetch(ENDPOINT)
+    .then((res) => {
+      if (!res.ok) throw new Error(String(res.status));
+      return res.json() as Promise<MusicData>;
+    })
+    .catch((e) => {
+      musicRequest = null;
+      throw e;
+    });
+  return musicRequest;
+}
+
 function timeAgo(iso: string) {
   const min = Math.floor((Date.now() - new Date(iso).getTime()) / 60_000);
   if (min < 1) return 'たった今';
@@ -107,9 +123,7 @@ export default function Music() {
 
     const load = async () => {
       try {
-        const res = await fetch(ENDPOINT);
-        if (!res.ok) throw new Error(String(res.status));
-        const json: MusicData = await res.json();
+        const json = await fetchMusic();
         if (!cancelled) {
           setData(json);
           setError(false);
@@ -165,5 +179,40 @@ export default function Music() {
         </div>
       )}
     </section>
+  );
+}
+
+// トップのカード用: よく聴いてる曲のジャケットを3枚重ねて出す
+export function MusicPreview() {
+  const [covers, setCovers] = useState<string[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchMusic()
+      .then((data) => {
+        if (cancelled) return;
+        const tracks = data.topTracks?.length ? data.topTracks : data.recent;
+        setCovers(tracks.map((t) => t.image).filter((src): src is string => !!src).slice(0, 3));
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (covers.length === 0) return null;
+  return (
+    <div className="flex -space-x-5">
+      {covers.map((src, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={src}
+          src={src}
+          alt=""
+          className="w-16 h-16 rounded-lg object-cover shadow-md border-2 border-white group-hover:-translate-y-1 transition-transform"
+          style={{ transform: `rotate(${(i - 1) * 6}deg)`, zIndex: 3 - i }}
+        />
+      ))}
+    </div>
   );
 }

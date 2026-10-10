@@ -9,8 +9,8 @@ import Experience from '../components/Experience';
 import Skills from '../components/Skills';
 import Works from '../components/Works';
 import Volleyball from '../components/Volleyball';
-import Music from '../components/Music';
-import Game from '../components/Game';
+import Music, { MusicPreview } from '../components/Music';
+import Game, { GamePreview } from '../components/Game';
 import Contact from '../components/Contact';
 
 // --- シンプルなジョイスティックコンポーネント ---
@@ -158,52 +158,54 @@ export default function Home() {
       
       {/* === Welcome画面 (hasStartedがfalseの時だけ表示) === */}
       {!hasStarted && (
-        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center p-6 bg-gray-900/60 backdrop-blur-md animate-fade-in">
-          
-          <div className="text-center mb-12 animate-fade-in-up">
-            <div className="w-32 h-32 mx-auto mb-6 relative">
-              <Image 
-                src="/Portfolio/images/onigiri860.jpg" 
-                alt="Profile Icon" 
-                fill
-                className="rounded-full shadow-2xl border-4 border-white object-cover"
-              />
+        // スマホで縦に収まらないときはスクロールできるようにする
+        <div className="fixed inset-0 z-[100] overflow-y-auto bg-gray-900/60 backdrop-blur-md animate-fade-in">
+          <div className="min-h-full flex flex-col items-center justify-center p-6">
+
+            <div className="text-center mb-8 md:mb-12 animate-fade-in-up">
+              <div className="w-24 h-24 md:w-32 md:h-32 mx-auto mb-6 relative">
+                <Image 
+                  src="/Portfolio/images/onigiri860.jpg" 
+                  alt="Profile Icon" 
+                  fill
+                  className="rounded-full shadow-2xl border-4 border-white object-cover"
+                />
+              </div>
+              <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight drop-shadow-lg">
+                Welcome to <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-amber-400">
+                  onigiri860's Portfolio
+                </span>
+              </h1>
+              <p className="inline-block bg-white text-gray-900 text-lg md:text-xl font-black px-6 py-2 rounded-full shadow-lg">
+                どっちで見る？
+              </p>
+              <p className="text-gray-200 text-sm font-bold mt-3">あとから切り替えられるよ</p>
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight drop-shadow-lg">
-              Welcome to <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-amber-400">
-                onigiri860's Portfolio
-              </span>
-            </h1>
-            <p className="text-gray-200 text-lg md:text-xl font-bold">
-              どっちか選んでね<br/>(後から違うほうも見れる)
-            </p>
-          </div>
 
-          <div className="flex flex-col md:flex-row gap-6 w-full max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            {/* 2D Button */}
-            <button 
-              onClick={() => handleStart('2d')}
-              className="flex-1 group relative bg-white/90 hover:bg-white p-8 rounded-3xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl flex flex-col items-center gap-4 text-center border-4 border-transparent hover:border-sky-400"
-            >
-              <div className="text-5xl group-hover:scale-110 transition-transform duration-300"></div>
-              <div>
-                <h3 className="text-2xl font-bold text-gray-800 group-hover:text-sky-600 transition-colors">通常Web</h3>
-                <p className="text-gray-500 text-sm mt-2 font-medium">ジャンルごとに分類分けされた<br/>ポートフォリオサイト</p>
-              </div>
-            </button>
+            <div className="grid grid-cols-2 gap-4 md:gap-6 w-full max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              {/* 2D Button */}
+              <button
+                onClick={() => handleStart('2d')}
+                className="flex-1 group bg-gradient-to-br from-sky-400 to-cyan-300 p-4 md:p-7 rounded-3xl md:rounded-[2rem] border-b-8 border-sky-600 shadow-xl transition-all duration-200 hover:-translate-y-2 hover:-rotate-1 active:translate-y-0 active:border-b-4 flex flex-col items-center gap-3 text-center"
+              >
+                <span className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-white flex items-center justify-center text-3xl md:text-4xl shadow-md group-hover:scale-110 group-hover:rotate-6 transition-transform">🗂️</span>
+                <h3 className="text-lg md:text-2xl font-black text-white drop-shadow">通常Web</h3>
+                <p className="text-white/90 text-xs md:text-sm font-bold">カードを選んで<br />サクッと読める</p>
+                <span className="mt-1 bg-white text-sky-600 text-xs md:text-sm font-black px-4 md:px-5 py-2 rounded-full shadow group-hover:px-6 md:group-hover:px-7 transition-all">はじめる →</span>
+              </button>
 
-            {/* 3D Button */}
-            <button 
-              onClick={() => handleStart('3d')}
-              className="flex-1 group relative bg-gray-800/90 hover:bg-gray-800 p-8 rounded-3xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl flex flex-col items-center gap-4 text-center border-4 border-transparent hover:border-amber-500"
-            >
-              <div className="text-5xl group-hover:scale-110 transition-transform duration-300"></div>
-              <div>
-                <h3 className="text-2xl font-bold text-white group-hover:text-amber-500 transition-colors">3D World</h3>
-                <p className="text-gray-400 text-sm mt-2 font-medium">小さな惑星を走り回って<br/>探索するポートフォリオ</p>
-              </div>
-            </button>
+              {/* 3D Button */}
+              <button
+                onClick={() => handleStart('3d')}
+                className="flex-1 group bg-gradient-to-br from-amber-400 to-orange-500 p-4 md:p-7 rounded-3xl md:rounded-[2rem] border-b-8 border-orange-700 shadow-xl transition-all duration-200 hover:-translate-y-2 hover:rotate-1 active:translate-y-0 active:border-b-4 flex flex-col items-center gap-3 text-center"
+              >
+                <span className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-white flex items-center justify-center text-3xl md:text-4xl shadow-md group-hover:scale-110 group-hover:-rotate-6 transition-transform">🪐</span>
+                <h3 className="text-lg md:text-2xl font-black text-white drop-shadow">3D World</h3>
+                <p className="text-white/90 text-xs md:text-sm font-bold">惑星を走り回って<br />建物を探検する</p>
+                <span className="mt-1 bg-white text-orange-600 text-xs md:text-sm font-black px-4 md:px-5 py-2 rounded-full shadow group-hover:px-6 md:group-hover:px-7 transition-all">あそぶ →</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -313,9 +315,6 @@ export default function Home() {
                         onigiri860's Portfolio
                       </span>
                     </h2>
-                    <p className="text-gray-700 max-w-xl mx-auto font-bold bg-white/40 inline-block px-4 py-1 rounded-full backdrop-blur-sm">
-                      🍙
-                    </p>
                   </section>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -353,7 +352,7 @@ export default function Home() {
                           趣味であるバレーボールについての紹介。<br/>今までの活動や観戦記録。
                         </p>
                       </div>
-                      <div className="flex items-center gap-2 text-orange-600 text-sm font-bold group-hover:translate-x-2 transition-transform">Open Gallery <span>→</span></div>
+                      <div className="flex items-center gap-2 text-orange-600 text-sm font-bold group-hover:translate-x-2 transition-transform">View <span>→</span></div>
                     </div>
                     {/* Music */}
                     <div onClick={() => setActiveSection('music')} className="group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white/60 hover:border-purple-500 hover:bg-white/90 transition-all cursor-pointer h-64 flex flex-col justify-between shadow-lg hover:shadow-xl">
@@ -362,7 +361,10 @@ export default function Home() {
                           よく聴いてる曲と、最近聴いた曲。<br/>Spotify と連携。
                         </p>
                       </div>
-                      <div className="flex items-center gap-2 text-purple-600 text-sm font-bold group-hover:translate-x-2 transition-transform">Open Gallery <span>→</span></div>
+                      <div className="flex items-end justify-between gap-4">
+                        <div className="flex items-center gap-2 text-purple-600 text-sm font-bold group-hover:translate-x-2 transition-transform">Listen <span>→</span></div>
+                        <MusicPreview />
+                      </div>
                     </div>
                     {/* Game */}
                     <div onClick={() => setActiveSection('game')} className="group bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-white/60 hover:border-red-500 hover:bg-white/90 transition-all cursor-pointer h-64 flex flex-col justify-between shadow-lg hover:shadow-xl">
@@ -371,7 +373,10 @@ export default function Home() {
                           最近遊んでるゲーム。<br/>イナイレ、OW2、ポケスリなど。
                         </p>
                       </div>
-                      <div className="flex items-center gap-2 text-red-600 text-sm font-bold group-hover:translate-x-2 transition-transform">Open Gallery <span>→</span></div>
+                      <div className="flex items-end justify-between gap-4">
+                        <div className="flex items-center gap-2 text-red-600 text-sm font-bold group-hover:translate-x-2 transition-transform">Play <span>→</span></div>
+                        <GamePreview />
+                      </div>
                     </div>
                   </div>
                   <Contact />

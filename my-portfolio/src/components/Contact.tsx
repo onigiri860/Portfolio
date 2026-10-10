@@ -3,11 +3,13 @@ import React from 'react';
 export default function Contact() {
   return (
     <section id="contact" className="text-center py-10 border-t border-white/30 mt-16">
-      <h3 className="text-xl font-bold mb-4 text-gray-900">Contact</h3>
-      
-      <p className="text-gray-700 mb-8 text-sm font-medium">
-        連絡やソースコードの確認は GitHub にお願いします。
-      </p>
+      {/* 背景の写真に埋もれないよう、文字の後ろに半透明の帯を敷く */}
+      <div className="inline-block bg-white/75 backdrop-blur-md px-6 py-3 rounded-2xl shadow-sm mb-8">
+        <h3 className="text-xl font-bold mb-1 text-gray-900">Contact</h3>
+        <p className="text-gray-700 text-sm font-medium">
+          連絡やソースコードの確認は GitHub にお願いします。
+        </p>
+      </div>
 
       {/* アイコンリンクを横並びに配置 */}
       <div className="flex justify-center items-center gap-8">
@@ -57,7 +59,7 @@ export default function Contact() {
 
       </div>
 
-      <p className="text-gray-500 text-xs mt-12">© 2025 onigiri860</p>
+      <p className="inline-block text-gray-600 text-xs mt-12 bg-white/60 backdrop-blur-sm px-3 py-1 rounded-full">© 2025 onigiri860</p>
     </section>
   );
 }

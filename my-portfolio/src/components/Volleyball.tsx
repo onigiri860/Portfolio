@@ -51,7 +51,7 @@ export default function Volleyball() {
             <div className="flex justify-center">
               {/* Imageコンポーネントに変更。縦横比を維持してレスポンシブ表示 */}
               <Image
-                src="/Portfolio/images/volleyball_2025_10_24.jpg"
+                src="/Portfolio/images/volleyball_2025_10_24.webp"
                 alt="Volleyball Match 2025_10_24"
                 width={0}
                 height={0}
@@ -68,7 +68,7 @@ export default function Volleyball() {
             </p>
             <div className="flex justify-center">
               <Image
-                src="/Portfolio/images/volleyball_2025_03_09.jpg"
+                src="/Portfolio/images/volleyball_2025_03_09.webp"
                 alt="Volleyball Match 2025_03_09"
                 width={0}
                 height={0}
@@ -85,7 +85,7 @@ export default function Volleyball() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
               <Image
-                src="/Portfolio/images/haikyu_1.jpg"
+                src="/Portfolio/images/haikyu_1.webp"
                 alt="haikyu_1"
                 width={0}
                 height={0}
@@ -93,7 +93,7 @@ export default function Volleyball() {
                 className="rounded-xl shadow-md border-4 border-white w-full h-auto"
               />
               <Image
-                src="/Portfolio/images/haikyu_2.jpg"
+                src="/Portfolio/images/haikyu_2.webp"
                 alt="haikyu_2"
                 width={0}
                 height={0}

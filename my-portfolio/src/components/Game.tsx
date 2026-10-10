@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 type GameItem = {
   title: string;
@@ -51,6 +51,30 @@ const games: GameItem[] = [
 const steamHeader = (id: number) => `https://cdn.akamai.steamstatic.com/steam/apps/${id}/header.jpg`;
 const steamStore = (id: number) => `https://store.steampowered.com/app/${id}/`;
 
+// 読み込み中は灰色の箱を点滅させ、届いたらふわっと出す
+function GameImage({ src, alt }: { src: string; alt: string }) {
+  const [loaded, setLoaded] = useState(false);
+  const ref = useRef<HTMLImageElement>(null);
+  // キャッシュ済みだと onLoad より先に読み終わっていることがある
+  useEffect(() => {
+    if (ref.current?.complete) setLoaded(true);
+  }, []);
+  return (
+    <>
+      {!loaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        ref={ref}
+        src={src}
+        alt={alt}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        className={`w-full h-full object-cover group-hover:scale-105 transition duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+      />
+    </>
+  );
+}
+
 export default function Game() {
   return (
     <section className="bg-white/80 p-8 rounded-3xl border border-white/60 backdrop-blur-md shadow-lg">
@@ -71,13 +95,7 @@ export default function Game() {
               {/* Steam のヘッダー画像と同じ比率 (460x215) */}
               <div className="relative aspect-[460/215] overflow-hidden bg-gray-100">
                 {image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={image}
-                    alt={game.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                  <GameImage src={image} alt={game.title} />
                 ) : (
                   <div className={`w-full h-full bg-gradient-to-br ${game.fallback?.gradient ?? 'from-gray-300 to-gray-100'} flex items-center justify-center`}>
                     <span className="text-5xl drop-shadow">{game.fallback?.emoji ?? '🎮'}</span>
@@ -104,5 +122,28 @@ export default function Game() {
         })}
       </div>
     </section>
+  );
+}
+
+// トップのカード用: ゲームの画像を3枚重ねて出す
+export function GamePreview() {
+  const images = games
+    .map((g) => g.image ?? (g.steamAppId ? steamHeader(g.steamAppId) : undefined))
+    .filter((src): src is string => !!src)
+    .slice(0, 3);
+  return (
+    <div className="flex -space-x-8 sm:-space-x-10">
+      {images.map((src, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={src}
+          src={src}
+          alt=""
+          loading="lazy"
+          className="w-20 sm:w-28 aspect-[460/215] rounded-lg object-cover shadow-md border-2 border-white bg-gray-200 group-hover:-translate-y-1 transition-transform"
+          style={{ transform: `rotate(${(i - 1) * 5}deg)`, zIndex: 3 - i }}
+        />
+      ))}
+    </div>
   );
 }
